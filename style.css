@@ -36,7 +36,7 @@ button {
     color: white;
     padding: 10px 20px;
     border: none;
-    border-radius: 5px;
+    border-radius: 20px;
     cursor: pointer;
     width: 100%; /* Botão ocupará toda a largura do contêiner */
 }
