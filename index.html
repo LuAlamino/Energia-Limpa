@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Energia Limpa</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1 style="color:white;">Energia Limpa</h1>
+        <h1 style="color:white;">Melhorando nosso meio ambiente</h1>
+        <label for="horario">Horário:</label>
+        <select name="horario" id="horario">
+            <option value="01:00">01:00</option>
+            <option value="02:00">02:00</option>
+            <option value="03:00">03:00</option>
+            <option value="04:00">04:00</option>
+            <option value="05:00">05:00</option>
+            <option value="06:00">06:00</option>
+            <option value="07:00">07:00</option>
+            <option value="08:00">08:00</option>
+            <option value="09:00">09:00</option>
+            <option value="10:00">10:00</option>
+            <option value="11:00">11:00</option>
+            <option value="12:00">12:00</option>
+            <option value="13:00">13:00</option>
+            <option value="14:00">14:00</option>
+            <option value="15:00">15:00</option>
+            <option value="16:00">16:00</option>
+            <option value="17:00">17:00</option>
+            <option value="18:00">18:00</option>
+            <option value="19:00">19:00</option>
+            <option value="20:00">20:00</option>
+            <option value="21:00">21:00</option>
+            <option value="22:00">22:00</option>
+            <option value="23:00">23:00</option>
+            <option value="00:00">00:00</option>
+        </select>   
+        <label for="mes">Mês:</label>
+        <select name="mes" id="mes">
+            <option value="janeiro">Janeiro</option>
+            <option value="fevereiro">Fevereiro</option>
+            <option value="marco">Março</option>
+            <option value="abril">Abril</option>
+            <option value="maio">Maio</option>
+            <option value="junho">Junho</option>
+            <option value="julho">Julho</option>
+            <option value="agosto">Agosto</option>
+            <option value="setembro">Setembro</option>
+            <option value="outubro">Outubro</option>
+            <option value="novembro">Novembro</option>
+            <option value="dezembro">Dezembro</option>
+        </select>
+        <label for="dia">Dia:</label>
+        <select name="dia" id="dia">
+            <option value="domingo">Domingo</option>
+            <option value="segunda">Segunda-feira</option>
+            <option value="terca">Terça-feira</option>
+            <option value="quarta">Quarta-feira</option>
+            <option value="quinta">Quinta-feira</option>
+            <option value="sexta">Sexta-feira</option>
+            <option value="sabado">Sábado</option>
+        </select>
+        <label for="nivel-agua">Nível de Água (%):</label>
+        <input type="number" id="nivel-agua" min="20" max="100" oninput="validateWaterLevel()">
+        <span id="error-message" style="color: red; display: none;"></span>
+        <button onclick="submitSelection()">Enviar</button>
+    </div>
+
+    <div class="chart-container">
+        <canvas id="water-level-chart" width="400" height="200"></canvas>
+        <canvas id="solar-current-chart" width="400" height="200"></canvas>
+    </div>
+
+    <div class="chart-container">
+        <canvas id="chart" width="400" height="200"></canvas>
+        <canvas id="solar-chart" width="400" height="200"></canvas>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/jscharting@3/dist/jscharting.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
+    <script src="script.js"></script>
+    <script>
+        function validateWaterLevel() {
+            var waterLevelInput = document.getElementById('nivel-agua');
+            var errorMessage = document.getElementById('error-message');
+
+            if (waterLevelInput.value < 20) {
+                errorMessage.innerText = 'O nível mínimo para irrigação é 20%.';
+                errorMessage.style.display = 'block';
+            } else if (waterLevelInput.value > 100) {
+                errorMessage.innerText = 'O valor está incorreto. Deve ser no máximo 100%.';
+                errorMessage.style.display = 'block';
+            } else {
+                errorMessage.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>
