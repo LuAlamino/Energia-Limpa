@@ -1,180 +1,59 @@
-document.addEventListener('DOMContentLoaded', function() {
-    var currentWaterLevel = 90; // Valor inicial da água
-    var currentSolarEnergy = 15; // Valor inicial da energia
+body {
+    font-family: Arial, sans-serif;
+}
 
-    var waterLevelCtx = document.getElementById('water-level-chart').getContext('2d');
-    var waterLevelChart = new Chart(waterLevelCtx, {
-        type: 'bar',
-        data: {
-            labels: ['Nível de Água'],
-            datasets: [{
-                label: 'Nível de Água Atual (%)',
-                data: [currentWaterLevel],
-                backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                borderColor: 'rgba(75, 192, 192, 1)',
-                borderWidth: 2
-            }]
-        },
-        options: {
-            scales: {
-                yAxes: [{
-                    ticks: {
-                        beginAtZero: true,
-                        max: 100
-                    }
-                }]
-            }
-        }
-    });
+.container {
+    max-width: 600px;
+    margin: 50px auto;
+    background-color: #94cf99;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
 
-    var solarCurrentCtx = document.getElementById('solar-current-chart').getContext('2d');
-    var solarCurrentChart = new Chart(solarCurrentCtx, {
-        type: 'bar',
-        data: {
-            labels: ['Energia Solar'],
-            datasets: [{
-                label: 'Energia Solar Atual (%)',
-                data: [currentSolarEnergy],
-                backgroundColor: 'rgba(255, 205, 86, 0.2)',
-                borderColor: 'rgba(255, 205, 86, 1)',
-                borderWidth: 2
-            }]
-        },
-        options: {
-            scales: {
-                yAxes: [{
-                    ticks: {
-                        beginAtZero: true,
-                        max: 100
-                    }
-                }]
-            }
-        }
-    });
+h1 {
+    font-size: 24px;
+    color: #333;
+}
 
-    var ctx = document.getElementById('chart').getContext('2d');
-    var chart = new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: ['Mar 17', 'Mar 18', 'Mar 19', 'Mar 20', 'Mar 21', 'Mar 22', 'Mar 23'],
-            datasets: [{
-                label: 'Coleta Semanal ( Água da Chuva )',
-                data: [70, 60, 30, 75, 75, 50, 90],
-                backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                borderColor: 'rgba(75, 192, 192, 1)',
-                borderWidth: 2
-            }]
-        },
-        options: {
-            scales: {
-                yAxes: [{
-                    ticks: {
-                        beginAtZero: true,
-                        max: 100
-                    }
-                }]
-            }
-        }
-    });
+label {
+    display: block;
+    margin-bottom: 5px;
+    color: #666;
+}
 
-    var ctxSolar = document.getElementById('solar-chart').getContext('2d');
-    var solarChart = new Chart(ctxSolar, {
-        type: 'line',
-        data: {
-            labels: ['Mar 17', 'Mar 18', 'Mar 19', 'Mar 20', 'Mar 21', 'Mar 22', 'Mar 23'],
-            datasets: [{
-                label: 'Armazenamento Semanal ( Energia Solar )',
-                data: [80, 90, 50, 72, 80, 68, 90],
-                backgroundColor: 'rgba(255, 205, 86, 0.2)',
-                borderColor: 'rgba(255, 205, 86, 1)',
-                borderWidth: 2
-            }]
-        },
-        options: {
-            scales: {
-                yAxes: [{
-                    ticks: {
-                        beginAtZero: true,
-                        max: 100
-                    }
-                }]
-            }
-        }
-    });
+select, input[type="number"] {
+    width: calc(50% - 20px); /* 50% menos 5px para dar espaço */
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #c8e90f;
+    border-radius: 5px;
+    box-sizing: border-box; /* Garante que a largura inclua o preenchimento e a borda */
+}
 
-    function updateCharts() {
+button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    width: 100%; /* Botão ocupará toda a largura do contêiner */
+}
 
-            // Verificar se há energia suficiente
-        if (currentSolarEnergy < 10) {
-            alert('Para o funcionamento será necessário 10% de energia');
-            return;
-        }
-        // Atualizar o gráfico do nível de água
-        var waterLevelInput = document.getElementById('nivel-agua');
-        var waterLevelValue = parseInt(waterLevelInput.value);
-        if (!isNaN(waterLevelValue)) {
-            var newWaterLevel = Math.max(-1, Math.min(100, currentWaterLevel - waterLevelValue));
-            if (newWaterLevel >= 0) { // Verificar se há água suficiente
-                currentWaterLevel = newWaterLevel;
-                waterLevelChart.data.datasets[0].data[0] = currentWaterLevel;
-            } else {
-                alert('Falta de água!');
-                return;
-            }
-        }
+button:hover {
+    background-color: #45a049;
+}
 
-        // Atualizar o gráfico da energia solar
-        var newSolarEnergy = Math.max(0, currentSolarEnergy - 10);
-        if (newSolarEnergy < currentSolarEnergy) {
-            currentSolarEnergy = newSolarEnergy;
-            solarCurrentChart.data.datasets[0].data[0] = currentSolarEnergy;
-        } else {
-            alert('Para o funcionamento sera necessario 10% de energia');
-            return;
-        }
+.chart-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
 
-        // Atualizar os gráficos
-        waterLevelChart.update();
-        solarCurrentChart.update();
-
-        // Exibir mensagem de sucesso
-        alert('Limpeza de placas agendada.');
-
-        
-    }
-
-    var submitButton = document.querySelector('button');
-    submitButton.addEventListener('click', updateCharts);
-
-    var waterLevelInput = document.getElementById('nivel-agua');
-    waterLevelInput.addEventListener('keydown', function(event) {
-        if (event.key === 'Enter') { // Verificar se a tecla pressionada é Enter
-            updateCharts(); // Chamar a função para atualizar os gráficos
-        }
-    });
-});
-
-function acionarDispositivoNoTinkercad() {
-    var circuitId = '3X6h3iPNsdF-shiny-trug'; // Substitua pelo ID do seu circuito
-    var apiKey = 'sua_api_key'; // Substitua pela sua chave de API do Tinkercad
-
-    fetch(`https://tinkercad.com/api/v1/circuits/${circuitId}/simulation`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${apiKey}`
-        },
-        body: JSON.stringify({
-            action: 'start' // ou 'stop' para desligar
-        })
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Erro ao acionar o dispositivo no Tinkercad');
-        }
-        console.log('Dispositivo acionado com sucesso no Tinkercad');
-    })
-    .catch(error => {
-        console.error('Erro:', error);
-    });
+.chart-container canvas {
+    max-width: 40%; /* Largura máxima de 50% para cada gráfico */
+    width: 100%; /* Define a largura como 100% para que eles ocupem a largura máxima */
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
