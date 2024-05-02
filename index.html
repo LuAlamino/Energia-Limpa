@@ -10,6 +10,7 @@
     <div class="container">
         <h1 style="color:white;">Energia Limpa</h1>
         <h1 style="color:white;">Melhorando nosso meio ambiente</h1>
+    
         <label for="horario">Horário:</label>
         <select name="horario" id="horario">
             <option value="01:00">01:00</option>
@@ -36,7 +37,18 @@
             <option value="22:00">22:00</option>
             <option value="23:00">23:00</option>
             <option value="00:00">00:00</option>
-        </select>   
+        </select>  
+        
+        <label for="dia">Dia:</label>
+        <select name="dia" id="dia">
+            <option value="domingo">Domingo</option>
+            <option value="segunda">Segunda-feira</option>
+            <option value="terca">Terça-feira</option>
+            <option value="quarta">Quarta-feira</option>
+            <option value="quinta">Quinta-feira</option>
+            <option value="sexta">Sexta-feira</option>
+            <option value="sabado">Sábado</option>
+        </select>
         <label for="mes">Mês:</label>
         <select name="mes" id="mes">
             <option value="janeiro">Janeiro</option>
@@ -52,16 +64,15 @@
             <option value="novembro">Novembro</option>
             <option value="dezembro">Dezembro</option>
         </select>
-        <label for="dia">Dia:</label>
-        <select name="dia" id="dia">
-            <option value="domingo">Domingo</option>
-            <option value="segunda">Segunda-feira</option>
-            <option value="terca">Terça-feira</option>
-            <option value="quarta">Quarta-feira</option>
-            <option value="quinta">Quinta-feira</option>
-            <option value="sexta">Sexta-feira</option>
-            <option value="sabado">Sábado</option>
+       
+        <label for="Sabão">Quer Utilizar Sabão?</label>
+        <select name="Sabao" id="Sabao" onchange="showMessage()">
+            
+            <option value="Sim">Sim</option>
+            <option value="Não">Não</option>
+            
         </select>
+        <span id="AumentoTempo" style="color: rgb(255, 255, 255); display: none;">O tempo de limpeza irá aumentar em 30 minutos.</span>
         <label for="nivel-agua">Nível de Água (%):</label>
         <input type="number" id="nivel-agua" min="20" max="100" oninput="validateWaterLevel()">
         <span id="error-message" style="color: red; display: none;"></span>
@@ -82,6 +93,19 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
     <script src="script.js"></script>
     <script>
+
+        function showMessage() {
+            var selectBox = document.getElementById("Sabao");
+            var selectedValue = selectBox.options[selectBox.selectedIndex].value;
+            var aumentoTempoMessage = document.getElementById("AumentoTempo");
+
+            if (selectedValue === "Sim") {
+                aumentoTempoMessage.style.display = "block";
+            } else {
+                aumentoTempoMessage.style.display = "none";
+            }
+        }
+       
         function validateWaterLevel() {
             var waterLevelInput = document.getElementById('nivel-agua');
             var errorMessage = document.getElementById('error-message');
@@ -89,13 +113,23 @@
             if (waterLevelInput.value < 20) {
                 errorMessage.innerText = 'O nível mínimo para irrigação é 20%.';
                 errorMessage.style.display = 'block';
+                return false; // Impede o envio do formulário se o nível de água for menor que 20
             } else if (waterLevelInput.value > 100) {
                 errorMessage.innerText = 'O valor está incorreto. Deve ser no máximo 100%.';
                 errorMessage.style.display = 'block';
+                return false; // Impede o envio do formulário se o nível de água for maior que 100
             } else {
                 errorMessage.style.display = 'none';
+                return true; // Permite o envio do formulário se todas as validações passarem
             }
         }
+        
+        function validateForm() {
+            return validateWaterLevel(); // Chama a função de validação de nível de água no evento onsubmit do formulário
+        }
+        
+
+      
     </script>
 </body>
 </html>
