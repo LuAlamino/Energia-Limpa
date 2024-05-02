@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
     var currentWaterLevel = 90; // Valor inicial da água
-    var currentSolarEnergy = 50; // Valor inicial da energia
+    var currentSolarEnergy = 15; // Valor inicial da energia
 
     var waterLevelCtx = document.getElementById('water-level-chart').getContext('2d');
     var waterLevelChart = new Chart(waterLevelCtx, {
@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 data: [currentWaterLevel],
                 backgroundColor: 'rgba(75, 192, 192, 0.2)',
                 borderColor: 'rgba(75, 192, 192, 1)',
-                borderWidth: 1
+                borderWidth: 2
             }]
         },
         options: {
@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 data: [currentSolarEnergy],
                 backgroundColor: 'rgba(255, 205, 86, 0.2)',
                 borderColor: 'rgba(255, 205, 86, 1)',
-                borderWidth: 1
+                borderWidth: 2
             }]
         },
         options: {
@@ -58,11 +58,11 @@ document.addEventListener('DOMContentLoaded', function() {
         data: {
             labels: ['Mar 17', 'Mar 18', 'Mar 19', 'Mar 20', 'Mar 21', 'Mar 22', 'Mar 23'],
             datasets: [{
-                label: 'Nível de Água',
-                data: [70, 60, 65, 75, 80, 85, 90],
+                label: 'Coleta Semanal ( Água da Chuva )',
+                data: [70, 60, 30, 75, 75, 50, 90],
                 backgroundColor: 'rgba(75, 192, 192, 0.2)',
                 borderColor: 'rgba(75, 192, 192, 1)',
-                borderWidth: 1
+                borderWidth: 2
             }]
         },
         options: {
@@ -83,11 +83,11 @@ document.addEventListener('DOMContentLoaded', function() {
         data: {
             labels: ['Mar 17', 'Mar 18', 'Mar 19', 'Mar 20', 'Mar 21', 'Mar 22', 'Mar 23'],
             datasets: [{
-                label: 'Nível de Energia Solar',
+                label: 'Armazenamento Semanal ( Energia Solar )',
                 data: [80, 90, 50, 72, 80, 68, 90],
                 backgroundColor: 'rgba(255, 205, 86, 0.2)',
                 borderColor: 'rgba(255, 205, 86, 1)',
-                borderWidth: 1
+                borderWidth: 2
             }]
         },
         options: {
@@ -103,12 +103,18 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     function updateCharts() {
+
+            // Verificar se há energia suficiente
+        if (currentSolarEnergy < 10) {
+            alert('Para o funcionamento será necessário 10% de energia');
+            return;
+        }
         // Atualizar o gráfico do nível de água
         var waterLevelInput = document.getElementById('nivel-agua');
         var waterLevelValue = parseInt(waterLevelInput.value);
         if (!isNaN(waterLevelValue)) {
-            var newWaterLevel = Math.max(0, Math.min(100, currentWaterLevel - waterLevelValue));
-            if (newWaterLevel < currentWaterLevel) {
+            var newWaterLevel = Math.max(-1, Math.min(100, currentWaterLevel - waterLevelValue));
+            if (newWaterLevel >= 0) { // Verificar se há água suficiente
                 currentWaterLevel = newWaterLevel;
                 waterLevelChart.data.datasets[0].data[0] = currentWaterLevel;
             } else {
@@ -123,7 +129,7 @@ document.addEventListener('DOMContentLoaded', function() {
             currentSolarEnergy = newSolarEnergy;
             solarCurrentChart.data.datasets[0].data[0] = currentSolarEnergy;
         } else {
-            alert('Falta de energia!');
+            alert('Para o funcionamento sera necessario 10% de energia');
             return;
         }
 
@@ -132,9 +138,43 @@ document.addEventListener('DOMContentLoaded', function() {
         solarCurrentChart.update();
 
         // Exibir mensagem de sucesso
-        alert('Irrigação agendada com sucesso!');
+        alert('Limpeza de placas agendada.');
+
+        
     }
 
     var submitButton = document.querySelector('button');
     submitButton.addEventListener('click', updateCharts);
+
+    var waterLevelInput = document.getElementById('nivel-agua');
+    waterLevelInput.addEventListener('keydown', function(event) {
+        if (event.key === 'Enter') { // Verificar se a tecla pressionada é Enter
+            updateCharts(); // Chamar a função para atualizar os gráficos
+        }
+    });
 });
+
+function acionarDispositivoNoTinkercad() {
+    var circuitId = '3X6h3iPNsdF-shiny-trug'; // Substitua pelo ID do seu circuito
+    var apiKey = 'sua_api_key'; // Substitua pela sua chave de API do Tinkercad
+
+    fetch(`https://tinkercad.com/api/v1/circuits/${circuitId}/simulation`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${apiKey}`
+        },
+        body: JSON.stringify({
+            action: 'start' // ou 'stop' para desligar
+        })
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Erro ao acionar o dispositivo no Tinkercad');
+        }
+        console.log('Dispositivo acionado com sucesso no Tinkercad');
+    })
+    .catch(error => {
+        console.error('Erro:', error);
+    });
+}
