@@ -23,10 +23,10 @@ label {
 }
 
 select, input[type="number"] {
-    width: calc(50% - 5px); /* 50% menos 5px para dar espaço */
+    width: calc(50% - 20px); /* 50% menos 5px para dar espaço */
     padding: 8px;
     margin-bottom: 10px;
-    border: 1px solid #ccc;
+    border: 1px solid #c8e90f;
     border-radius: 5px;
     box-sizing: border-box; /* Garante que a largura inclua o preenchimento e a borda */
 }
@@ -36,7 +36,7 @@ button {
     color: white;
     padding: 10px 20px;
     border: none;
-    border-radius: 5px;
+    border-radius: 20px;
     cursor: pointer;
     width: 100%; /* Botão ocupará toda a largura do contêiner */
 }
@@ -52,7 +52,7 @@ button:hover {
 }
 
 .chart-container canvas {
-    max-width: 50%; /* Largura máxima de 50% para cada gráfico */
+    max-width: 40%; /* Largura máxima de 50% para cada gráfico */
     width: 100%; /* Define a largura como 100% para que eles ocupem a largura máxima */
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
