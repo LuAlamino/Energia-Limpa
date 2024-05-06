@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
     var currentWaterLevel = 90; // Valor inicial da água
-    var currentSolarEnergy = 15; // Valor inicial da energia
+    var currentSolarEnergy = 35; // Valor inicial da energia
 
     var waterLevelCtx = document.getElementById('water-level-chart').getContext('2d');
     var waterLevelChart = new Chart(waterLevelCtx, {
@@ -56,7 +56,7 @@ document.addEventListener('DOMContentLoaded', function() {
     var chart = new Chart(ctx, {
         type: 'line',
         data: {
-            labels: ['Mar 17', 'Mar 18', 'Mar 19', 'Mar 20', 'Mar 21', 'Mar 22', 'Mar 23'],
+            labels: ['maio 13', 'Maio 14', 'Maio 15', 'Maio 16', 'Maio 17', 'Maio 18', 'Maio 19'],
             datasets: [{
                 label: 'Coleta Semanal ( Água da Chuva )',
                 data: [70, 60, 30, 75, 75, 50, 90],
@@ -81,7 +81,7 @@ document.addEventListener('DOMContentLoaded', function() {
     var solarChart = new Chart(ctxSolar, {
         type: 'line',
         data: {
-            labels: ['Mar 17', 'Mar 18', 'Mar 19', 'Mar 20', 'Mar 21', 'Mar 22', 'Mar 23'],
+            labels: ['maio 13', 'Maio 14', 'Maio 15', 'Maio 16', 'Maio 17', 'Maio 18', 'Maio 19'],
             datasets: [{
                 label: 'Armazenamento Semanal ( Energia Solar )',
                 data: [80, 90, 50, 72, 80, 68, 90],
