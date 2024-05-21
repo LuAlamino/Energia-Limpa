@@ -35,3 +35,7 @@ Lucas Alamino Martins - [alaminolucas@gmail.com]
 |------|
 🌧️Água renovável
 [Site](energialimpa28.wordpress.com)
+
+[TinkerCad](https://www.tinkercad.com/things/aUURbsszyvc-wifi-module-esp8266-/editel?returnTo=%2Fthings%2FaUURbsszyvc-copy-of-wifi-module-esp8266-)
+
+[Referência](https://curtocircuito.com.br/blog/Categoria%20IoT/conectando-o-arduino-a-internet-com-esp01)
