@@ -27,7 +27,7 @@ Aberto a novas oportunidades
 
 Lucas Alamino Martins - [alaminolucas@gmail.com]
 
-[Linkedin](https://www.linkedin.com/in/lucas-alamino-martins-03656a178/)
+[Linkedin](https://www.linkedin.com/in/lucas-alamino-martins/)
 
 
 
